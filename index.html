@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1"> </script>
+<!-- Load the MobileNet model. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"> </script>
+</head>
+<body>
+    <!-- Load TensorFlow.js. This is required to use MobileNet. -->
+
+<div>
+  <input id="input" type="text">
+  <button id="boton">Dale</button>
+</div>
+<!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
+<div id="img">
+<!--Aca van a ir los resultados-->
+</div>
+
+
+<!-- Place your code in the script tag below. You can also use an external .js file -->
+<script>
+  // Notice there is no 'import' statement. 'mobilenet' and 'tf' is
+  // available on the index-page because of the script tag above.
+  document.getElementById("boton").addEventListener("click", ()=>{
+    const imagen = document.getElementById("input").value; 
+    document.getElementById("img").innerHTML = `<img id="1" src="${imagen}"></img>`;
+
+    const img = document.getElementById('1');
+     // Load the model.
+  mobilenet.load().then(model => {
+    // Classify the image.
+    model.classify(img).then(predictions => {
+      console.log('Predictions: ');
+      document.getElementById("img").innerHTML += `<h2>${predictions[0].className}</h2>` ;
+      console.log(predictions)
+    });
+  });
+  })
+
+  
+
+ 
+</script>
+</body>
+</html>
